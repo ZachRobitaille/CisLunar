@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="700" viewBox="0 0 700 700">
+  <defs>
+    <radialGradient id="surface" cx="31%" cy="27%" r="76%"><stop stop-color="#d3d3c4"/><stop offset=".4" stop-color="#aaa999"/><stop offset=".72" stop-color="#6d7163"/><stop offset="1" stop-color="#282e27"/></radialGradient>
+    <radialGradient id="crater"><stop stop-color="#51584c" stop-opacity=".1"/><stop offset=".68" stop-color="#3b4137" stop-opacity=".45"/><stop offset=".84" stop-color="#41483b" stop-opacity=".6"/><stop offset=".92" stop-color="#dadbcb" stop-opacity=".6"/><stop offset="1" stop-color="#c9cbb6" stop-opacity="0"/></radialGradient>
+    <radialGradient id="shade" cx="25%" cy="20%" r="82%"><stop offset=".4" stop-color="#0d1511" stop-opacity="0"/><stop offset=".75" stop-color="#111a13" stop-opacity=".35"/><stop offset="1" stop-color="#0b120e" stop-opacity=".94"/></radialGradient>
+    <filter id="texture"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="5" seed="12"/><feColorMatrix type="saturate" values="0"/><feBlend in="SourceGraphic" mode="multiply"/></filter>
+    <clipPath id="disc"><circle cx="350" cy="350" r="258"/></clipPath>
+  </defs>
+  <g clip-path="url(#disc)">
+    <circle cx="350" cy="350" r="258" fill="url(#surface)"/>
+    <g opacity=".21" filter="url(#texture)"><circle cx="350" cy="350" r="258" fill="#b7b8a9"/></g>
+    <g fill="#535b4e" opacity=".23"><path d="M212 155Q280 116 313 157T300 253Q252 299 207 260T212 155"/><path d="M340 205Q374 172 408 205T472 255Q484 298 441 308T369 267Q334 252 340 205"/><path d="M181 300Q224 279 246 329T232 410Q181 454 147 407T181 300"/><path d="M284 285Q317 262 340 295T335 357Q284 389 270 341T284 285"/></g>
+    <g fill="url(#crater)"><circle cx="160" cy="220" r="45"/><circle cx="227" cy="161" r="30"/><circle cx="312" cy="155" r="23"/><circle cx="355" cy="245" r="34"/><circle cx="435" cy="192" r="54"/><circle cx="491" cy="285" r="50"/><circle cx="280" cy="261" r="18"/><circle cx="195" cy="350" r="58"/><circle cx="285" cy="375" r="31"/><circle cx="376" cy="349" r="25"/><circle cx="405" cy="425" r="65"/><circle cx="320" cy="458" r="28"/><circle cx="229" cy="444" r="22"/><circle cx="276" cy="500" r="43"/><circle cx="367" cy="533" r="42"/><circle cx="458" cy="510" r="47"/><circle cx="521" cy="425" r="33"/><circle cx="546" cy="351" r="21"/><circle cx="142" cy="438" r="29"/><circle cx="187" cy="505" r="32"/><circle cx="315" cy="555" r="20"/><circle cx="420" cy="565" r="30"/><circle cx="337" cy="313" r="12"/><circle cx="233" cy="307" r="12"/><circle cx="402" cy="136" r="17"/><circle cx="475" cy="363" r="13"/><circle cx="346" cy="405" r="17"/><circle cx="298" cy="423" r="11"/><circle cx="215" cy="555" r="13"/><circle cx="497" cy="469" r="16"/></g>
+    <g stroke="#e4e4d0" stroke-width="1" opacity=".12"><path d="M405 420L240 303M405 420L307 221M405 420L497 221M405 420L541 354M405 420L572 472M405 420L442 590M405 420L324 582M405 420L201 492"/></g>
+    <circle cx="350" cy="350" r="258" fill="url(#shade)"/>
+  </g>
+  <circle cx="350" cy="350" r="258" fill="none" stroke="#d4dcc0" stroke-opacity=".15"/>
+</svg>

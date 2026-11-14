@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#272521"><meta name="description" content="See how CisLunar would compare two landing scenarios, from choosing a site to reading sunlight and Earth visibility windows."><title>Simulator preview — CisLunar</title><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../styles.css?v=20261114-walkthrough"><script src="../script.js?v=20261102-brief12" defer></script><link rel="alternate" hreflang="fr" href="../apercu.html"><link rel="alternate" hreflang="en" href="apercu.html"></head>
+<body id="haut"><a class="skip-link" href="#contenu">Skip to content</a>
+<header class="header"><a class="brand" href="index.html" aria-label="CisLunar, home">CisLunar<span class="brand-caption">LUNAR HORIZON</span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation">Menu <span aria-hidden="true">＋</span></button><nav id="navigation" aria-label="Main navigation"><a href="index.html">Home</a><a href="comprendre.html">Understand</a><a href="lieux.html">Locations</a><a href="solutions.html">Solutions</a><a href="telechargement.html">Software</a><a href="apercu.html" aria-current="page">Preview</a><a href="equipe.html">Team</a></nav><nav class="language-switch" aria-label="Language"><a href="../apercu.html" lang="fr" hreflang="fr" title="Passer en français">FR</a><a href="apercu.html" lang="en" hreflang="en" title="Switch to English" aria-current="true">EN</a></nav></header>
+<main id="contenu">
+  <section class="page-heading section slim-heading">
+    <h1>Simulator preview</h1>
+    <p class="page-lead">See how CisLunar would compare two landing scenarios, from choosing a site to reading sunlight and Earth visibility windows.</p>
+  </section>
+
+  <section id="fonctionnement" class="section sim-walkthrough" aria-labelledby="fonctionnement-titre">
+    <h2 id="fonctionnement-titre">How it works</h2>
+    <p class="sim-example">Example: the landing date slips. Keep Shackleton’s rim as the reference site and compare the original date with the new one.</p>
+    <ol class="sim-steps">
+      <li><h3>Choose a site</h3><p>Select a reference site or enter lunar coordinates. This example uses Shackleton’s rim.</p></li>
+      <li><h3>Set up two scenarios</h3><p>Enter a start date and time in UTC and choose a duration. To isolate the effect of the delay, keep the duration fixed and change only the start date.</p></li>
+      <li><h3>Simulate the Sun and Earth</h3><p>Calculate their directions and elevations at each time. Compare each one with the horizon in its direction to identify where terrain blocks the view.</p></li>
+      <li><h3>Compare the windows</h3><p>Use the same time scale to compare sunlight duration, Earth visibility windows and the time remaining before either body drops below the horizon.</p></li>
+    </ol>
+    <details class="data-method">
+      <summary>Planned data and validation</summary>
+      <p>Proposed sources include <a href="https://ssd.jpl.nasa.gov/horizons/">JPL Horizons</a> for Sun and Earth positions and <a href="https://pgda.gsfc.nasa.gov/products/90">LOLA elevation maps</a> for south pole terrain. The horizon calculation would account for terrain and lunar curvature in the absence of atmospheric refraction.</p>
+      <p>Angles would be checked against reference ephemerides across several sites and dates. Terrain resolution and time sampling limit the precision of the estimated windows.</p>
+      <p>The solar indicator will depend on panel orientation and the model used. Earth visibility indicates a geometrically possible direct link. Assessing the radio link also requires antenna, power and network information.</p>
+    </details>
+  </section>
+
+  <div class="section sim-preview">
+    <h2>Simulation scenarios</h2>
+    <p class="sim-cases-intro">Explore three locations. The charts are placeholders for future results.</p>
+    <nav class="sim-case-nav" aria-label="Scenarios to explore">
+        <a href="#crete">Shackleton rim</a>
+        <a href="#fond">Shackleton floor</a>
+        <a href="#face-cachee">Schrödinger basin</a>
+    </nav>
+
+    <article class="sim-case" id="crete" aria-labelledby="crete-title">
+      <div class="sim-case-copy">
+        <h2 id="crete-title">Shackleton rim</h2>
+        <p>For a hypothetical base at the south pole, when might a view of Earth coincide with favorable solar conditions?</p>
+      </div>
+      <figure class="sim-figure" aria-labelledby="crete-legend">
+        <figcaption class="sim-legend" id="crete-legend">
+          <span class="sim-earth">Earth elevation (°)</span>
+          <span class="sim-solar">Estimated solar efficiency (%)</span>
+        </figcaption>
+        <div class="sim-plot">
+          <p>No data yet</p>
+        </div>
+        <p class="sim-time">Elapsed time (h)</p>
+      </figure>
+    </article>
+
+    <article class="sim-case" id="fond" aria-labelledby="fond-title">
+      <div class="sim-case-copy">
+        <h2 id="fond-title">Shackleton floor</h2>
+        <p>On the same date, how would moving from the rim to the crater floor change the two curves?</p>
+      </div>
+      <figure class="sim-figure" aria-labelledby="fond-legend">
+        <figcaption class="sim-legend" id="fond-legend">
+          <span class="sim-earth">Earth elevation (°)</span>
+          <span class="sim-solar">Estimated solar efficiency (%)</span>
+        </figcaption>
+        <div class="sim-plot">
+          <p>No data yet</p>
+        </div>
+        <p class="sim-time">Elapsed time (h)</p>
+      </figure>
+    </article>
+
+    <article class="sim-case" id="face-cachee" aria-labelledby="face-cachee-title">
+      <div class="sim-case-copy">
+        <h2 id="face-cachee-title">Schrödinger basin</h2>
+        <p>For a hypothetical base on the far side, how would solar efficiency vary while Earth remains out of view?</p>
+      </div>
+      <figure class="sim-figure" aria-labelledby="face-cachee-legend">
+        <figcaption class="sim-legend" id="face-cachee-legend">
+          <span class="sim-earth">Earth elevation (°)</span>
+          <span class="sim-solar">Estimated solar efficiency (%)</span>
+        </figcaption>
+        <div class="sim-plot">
+          <p>No data yet</p>
+        </div>
+        <p class="sim-time">Elapsed time (h)</p>
+      </figure>
+    </article>
+
+  </div>
+</main>
+<footer><a class="brand" href="index.html" aria-label="CisLunar, home">CisLunar</a><p>Lunar illumination and Earth visibility · project in development.</p><a href="#haut">Back to top ↑</a><nav class="footer-nav" aria-label="Footer navigation"><a href="index.html">Home</a><a href="comprendre.html">Understand</a><a href="lieux.html">Locations</a><a href="solutions.html">Solutions</a><a href="telechargement.html">Software</a><a href="apercu.html" aria-current="page">Preview</a><a href="equipe.html">Team</a></nav><div class="footer-bottom"><span>EDUCATIONAL AND INFORMATIONAL PROJECT · CisLunar</span><span>CONCEPTUAL ILLUSTRATIONS · NOT AFFILIATED WITH NASA</span></div></footer>
+</body></html>
