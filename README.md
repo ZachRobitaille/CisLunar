@@ -14,7 +14,7 @@ Extraire toute l’archive et ouvrir `index.html` dans un navigateur. Aucun outi
 - `solutions.html` : liaisons directes, relais démontrés (Queqiao / Chang’e 4), limites, programmes en développement et détails sur les limites à déplier.
 - `telechargement.html` : futur téléchargement, état de disponibilité et documentation prévue.
 - `equipe.html` : les deux développeurs et leur démarche. Aucune biographie, spécialité, photo ou coordonnée n’a été inventée.
-- `styles.css`, `script.js` : styles partagés, menu mobile et schéma présent uniquement sur Solutions.
+- `styles.css`, `script.js` : styles partagés, navigation commune et démo de liaison radio.
 - `assets/favicon.svg`, `assets/moon.svg` : originaux conservés à l’identique.
 - `assets/moon-realistic.png` : rendu artistique généré par IA, sans exactitude cartographique garantie.
 
@@ -30,7 +30,7 @@ Après validation d’une version, déposer l’archive dans `downloads/`, rempl
 
 ## Accessibilité et vérification
 
-Navigation commune avec `aria-current`, lien d’évitement, titres hiérarchisés, focus visible, menu mobile avec Échap et restauration du focus, questions natives, curseur étiqueté et réduction des animations. Sans JavaScript, navigation, contenu et questions restent accessibles. Tester les six pages sur mobile et ordinateur, zoom à 200 %, clavier, menu et curseur. Le script vérifie la présence du schéma avant de l’initialiser.
+Navigation commune avec `aria-current`, lien d’évitement, titres hiérarchisés, focus visible, navigation visible qui se répartit sur plusieurs lignes sur mobile, questions natives, curseur étiqueté et réduction des animations. Sans JavaScript, navigation, contenu et questions restent accessibles. Tester les six pages sur mobile et ordinateur, zoom à 200 %, clavier, menu et curseur. Le script vérifie la présence du schéma avant de l’initialiser.
 
 Le site ne contient ni suivi, cookies, formulaire, police distante ni dépendance externe. Aucun hébergement n’est créé par cette livraison.
 
