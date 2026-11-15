@@ -122,6 +122,28 @@ input[type=range]{min-height:32px}.chart-label{fill:#d8c8b5}.download-button:dis
 .radio-reference{padding-top:30px;padding-bottom:35px}.radio-reference>details>summary,.data-method>summary,.site-context summary{border-top:1px solid var(--line);padding:20px 0;font-size:16px}.radio-reference .section{padding:30px 0}.radio-reference .future-networks{padding:30px}.data-method{margin-top:24px}.data-method p,.site-context p{font-size:14px;color:var(--muted);max-width:90ch}.data-method a,.site-context a{text-decoration:underline;text-underline-offset:4px}.site-context{padding-top:0;padding-bottom:35px}.planned-features{padding-top:45px;padding-bottom:45px}.planned-features .small-note{margin-top:20px}
 @media(max-width:1000px){.tool-grid{grid-template-columns:1fr}.tool-card{padding:24px}.tool-card p{max-width:80ch}}
 @media(max-width:760px){.hero h1{font-size:clamp(37px,8vw,58px);letter-spacing:-1.7px}.hero-description{font-size:16px}.briefing-pair,.scenario-need{grid-template-columns:1fr;gap:20px}.briefing-pair h2{font-size:22px}.scenario-need h2{font-size:32px}.scenario-need{padding-top:32px;padding-bottom:32px}.radio-reference .future-networks{padding:22px}.briefing-pair{padding-top:28px;padding-bottom:28px}}
+.place-plan {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  margin: 0 0 18px;
+  border: 1px dashed #ab947b;
+  border-radius: 12px;
+  background: #f4ebdd;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.place-plan img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+  border-radius: inherit;
+}
+
 /* Simulator preview charts reserve space for future data. */
 .sim-preview {
   padding-block: 32px 48px;
