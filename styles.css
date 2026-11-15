@@ -152,6 +152,27 @@ input[type=range]{min-height:32px}.chart-label{fill:#d8c8b5}.download-button:dis
   padding: 8px 12px;
 }
 
+.place-card--comparison {
+  grid-column: 1 / -1;
+}
+
+.place-comparison {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+}
+
+.place-comparison .place-plan {
+  margin-bottom: 0;
+}
+
+@media (max-width: 760px) {
+  .place-comparison {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* Simulator preview charts reserve space for future data. */
 .sim-preview {
   padding-block: 32px 48px;
