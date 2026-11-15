@@ -3,6 +3,48 @@
 const englishCopy = {"Animation : activée": "Animation: on", "Animation : désactivée": "Animation: off", "Masquez d’abord la Terre pour essayer le relais.": "Block Earth first to try the relay.", "Un trajet dégagé entre une antenne lunaire et la Terre": "A clear path between a lunar antenna and Earth", "À gauche, une antenne sur le sol lunaire. Le trait monte vers la Terre au-dessus de la montagne : le relief ne bloque pas le trajet.": "A lunar antenna stands on the left. The line reaches Earth above the mountain: the terrain does not block the path.", "Terre": "Earth", "Terre visible : un trajet direct est possible.": "Earth visible: a direct path is possible.", "La ligne passe au-dessus de la crête. Le relief ne bloque pas le signal, mais la puissance, le pointage et la disponibilité du réseau restent à vérifier.": "The line clears the ridge. The terrain does not block the signal, but power, antenna pointing and network availability still need to be checked.", "Le relief lunaire bloque le trajet direct vers la Terre": "Lunar terrain blocks the direct path to Earth", "Le trait part de l’antenne à gauche et rencontre le relief à droite, au niveau d’une croix. Le pointillé au-delà représente le trajet interrompu vers la Terre masquée.": "The line leaves the antenna on the left and meets the terrain at a cross on the right. The dashed line beyond it represents the blocked path to Earth.", "Terre masquée : le trajet direct est bloqué.": "Earth blocked: the direct path is unavailable.", "Le relief coupe le trajet direct. Activez « Rétablir le lien par satellite » pour ajouter un relais qui voit à la fois l’antenne et la Terre.": "The terrain blocks the direct path. Choose “Reconnect through a satellite” to add a relay with a clear view of both the antenna and Earth.", "Un satellite relaie le signal au-dessus du relief lunaire": "A satellite relays the signal above the lunar terrain", "Deux segments clairs relient l’antenne lunaire au satellite situé au-dessus de la crête, puis le satellite à la Terre à droite. Le trajet direct, en pointillé, reste bloqué par le relief.": "Two bright segments connect the lunar antenna to the satellite above the ridge, then the satellite to Earth on the right. The dashed direct path remains blocked by terrain.", "Terre toujours masquée au sol : le satellite fait le relais.": "Earth is still blocked from the surface: the satellite provides the relay.", "L’antenne rejoint le satellite, qui transmet vers la Terre par un second trajet dégagé. Cette géométrie illustre un contournement du relief ; une vraie liaison exige aussi une orbite adaptée, des terminaux compatibles, de l’énergie et une couverture disponible.": "The antenna reaches the satellite, which forwards the signal to Earth along a second clear path. This geometry illustrates a route around the terrain; a real link also needs a suitable orbit, compatible terminals, power and available coverage.", "La Terre est masquée : vous pouvez maintenant ajouter le satellite.": "Earth is blocked: you can now add the satellite.", "Le trajet direct reste bloqué ; les deux étapes du relais contournent le relief.": "The direct path remains blocked; the two relay legs bypass the terrain."};
 const localize = text => document.documentElement.lang === "en" ? (englishCopy[text] || text) : text;
 
+// Agrandit les illustrations sans quitter la page.
+if (document.querySelector("[data-image-preview]") && typeof HTMLDialogElement !== "undefined") {
+  const isEnglish = document.documentElement.lang === "en";
+  const viewer = document.createElement("dialog");
+  viewer.className = "image-viewer";
+  viewer.setAttribute("aria-label", isEnglish ? "Image preview" : "Aperçu de l’image");
+
+  const closeButton = document.createElement("button");
+  closeButton.type = "button";
+  closeButton.className = "image-viewer-close";
+  closeButton.textContent = "×";
+  closeButton.setAttribute("aria-label", isEnglish ? "Close image" : "Fermer l’image");
+  closeButton.setAttribute("autofocus", "");
+
+  const image = document.createElement("img");
+  viewer.append(closeButton, image);
+  document.body.append(viewer);
+
+  let opener;
+  document.addEventListener("click", event => {
+    const link = event.target.closest("a[data-image-preview]");
+    if (!link || event.defaultPrevented || event.button !== 0 ||
+        event.ctrlKey || event.metaKey || event.shiftKey || event.altKey ||
+        typeof viewer.showModal !== "function") return;
+
+    event.preventDefault();
+    opener = link;
+    image.alt = link.closest("figure")?.querySelector("img")?.alt ?? "";
+    image.src = link.href;
+    viewer.showModal();
+  });
+
+  closeButton.addEventListener("click", () => viewer.close());
+  viewer.addEventListener("click", event => {
+    if (event.target === viewer) viewer.close();
+  });
+  viewer.addEventListener("close", () => {
+    image.removeAttribute("src");
+    opener?.focus({ preventScroll: true });
+  });
+}
+
 // Les deux versions conservent les mêmes pages et les mêmes ancres.
 document.querySelectorAll(".language-switch a").forEach(link => {
   const destination = new URL(link.href);
