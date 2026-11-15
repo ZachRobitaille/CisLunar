@@ -220,6 +220,27 @@ input[type=range]{min-height:32px}.chart-label{fill:#d8c8b5}.download-button:dis
   font-size: 13px;
 }
 
+.tutorial-capture--filled {
+  display: block;
+  aspect-ratio: auto;
+  padding: 0;
+  overflow: hidden;
+  border-style: solid;
+}
+
+.tutorial-capture--filled img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.tutorial-capture--filled figcaption a {
+  display: block;
+  padding: 10px 14px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 @media (max-width: 760px) {
   .tutorial-step {
     grid-template-columns: minmax(0, 1fr);
