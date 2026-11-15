@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#272521"><meta name="description" content="Comment le simulateur passe d’un site et d’une date à des fenêtres d’éclairement, de visibilité de la Terre et de communication."><title>Méthode — CisLunar</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css?v=methodes"><script src="script.js?v=nav-visible" defer></script><link rel="alternate" hreflang="fr" href="methode.html"><link rel="alternate" hreflang="en" href="en/methode.html"></head>
+<body id="haut"><a class="skip-link" href="#contenu">Aller au contenu</a>
+<header class="header"><a class="brand" href="index.html" aria-label="CisLunar, introduction">CisLunar<span class="brand-caption">LUNAR HORIZON</span></a><nav id="navigation" aria-label="Navigation principale"><a href="index.html">Accueil</a><a href="comprendre.html">Comprendre</a><a href="lieux.html">Les lieux</a><a href="solutions.html">Solutions</a><a href="telechargement.html">Le logiciel</a><a href="apercu.html">Aperçu</a><a href="tutoriel.html">Tutoriel</a><a href="methode.html" aria-current="page">Méthode</a><a href="equipe.html">L’équipe</a></nav><nav class="language-switch" aria-label="Langue"><a href="methode.html" lang="fr" hreflang="fr" title="Passer en français" aria-current="true">FR</a><a href="en/methode.html" lang="en" hreflang="en" title="Switch to English">EN</a></nav></header>
+<main id="contenu">
+  <section class="page-heading section slim-heading">
+    <h1>Les calculs de CisLunar</h1>
+    <p class="page-lead">Comment le simulateur passe d’un site et d’une date à des fenêtres d’éclairement, de visibilité de la Terre et de communication.</p>
+  </section>
+  <div class="section method-guide">
+    <p class="method-scope">Cette page décrit les modèles du code Python de référence fourni par l’équipe. Les versions Windows sont distribuées séparément. La correspondance exacte avec chaque version compilée reste à vérifier. <a href="https://github.com/ZachRobitaille/CisLunar/releases">Versions du logiciel sur GitHub</a>.</p>
+    <nav class="sim-case-nav" aria-label="Sur cette page">
+      <a href="#reperes">Positions, temps et repères</a>
+      <a href="#angles">Du vecteur aux angles locaux</a>
+      <a href="#relief">Relief 3D et masque d’horizon</a>
+      <a href="#soleil">Éclairement et périodes d’ombre</a>
+      <a href="#communications">Visibilité de la Terre et réseau DSN</a>
+      <a href="#orbites">Trajectoires des satellites et choix du relais</a>
+      <a href="#chronologies">Chronologies, durées et fréquences</a>
+      <a href="#donnees">Sources, limites et vérification</a>
+    </nav>
+
+    <section id="reperes" class="method-section" aria-labelledby="reperes-titre">
+      <h2 id="reperes-titre">Positions, temps et repères</h2>
+      <p>Le visualiseur affiche la position de la Lune par rapport au centre de la Terre. Une éphéméride fournit des positions et, selon la requête, des vitesses à une date donnée. SPICE convertit la date UTC en temps d’éphéméride (ET) et lit les vecteurs géométriques de DE440s dans les axes J2000, sans correction du temps de trajet de la lumière ni de l’aberration.</p>
+      <p>Pour observer depuis le sol, on soustrait la position du centre de la Lune puis on tourne le vecteur vers <code>MOON_ME</code>, le repère lié à la Lune. Le noyau d’orientation fait évoluer ce repère au cours du temps et représente les librations physiques. Les distances sont calculées à partir des vecteurs, indépendamment de la mise en scène 3D.</p>
+      <p>La courbe d’orbite affichée utilise un point par jour sur ±20 ans autour de la date de lancement du logiciel. Le curseur règle l’instant de la scène, et le pas de la comparaison A/B se règle séparément.</p>
+    </section>
+
+    <section id="angles" class="method-section" aria-labelledby="angles-titre">
+      <h2 id="angles-titre">Du vecteur aux angles locaux</h2>
+      <p>À la latitude φ et à la longitude λ (positive vers l’est), le vecteur vertical unitaire <strong>u</strong> pointe du centre vers le site sur la sphère de référence. Pour une source de position lunaire <strong>r</strong>, on soustrait la position du site <strong>s</strong> et on normalise la ligne de visée. L’élévation h se mesure au-dessus du plan horizontal. L’azimut A se mesure depuis le nord, dans le sens horaire.</p>
+      <p class="method-equation"><b>u</b> = (cos φ cos λ, cos φ sin λ, sin φ)<br><b>s</b> = R<b>u</b><br><b>ℓ</b> = (<b>r</b> − <b>s</b>) / ‖<b>r</b> − <b>s</b>‖<br>h = arcsin(<b>ℓ</b> · <b>u</b>)<br>A = atan2(<b>ℓ</b> · <b>est</b>, <b>ℓ</b> · <b>nord</b>) modulo 360°</p>
+      <p>Le produit scalaire extrait la composante verticale. La soustraction du site tient compte du fait qu’un observateur sur le sol ne voit pas exactement la même direction qu’un observateur au centre. L’analyse A/B positionne le site sur la sphère. Pour l’azimut de la Terre et du Soleil, utiliser le vecteur centré sur la Lune donne les mêmes composantes horizontales, car le décalage du site est radial.</p>
+    </section>
+
+    <section id="relief" class="method-section" aria-labelledby="relief-titre">
+      <h2 id="relief-titre">Relief 3D et masque d’horizon</h2>
+      <p>LOLA est l’altimètre laser de Lunar Reconnaissance Orbiter. Ses mesures alimentent le modèle numérique d’élévation. Le code utilise la grille polaire ajustée de 20 m par pixel à partir de 80° S vers le pôle, et la grille globale USGS d’environ 118 m par pixel ailleurs ou en secours. La vue 3D reprojette le relief autour du site et trace des courbes de niveau. L’exagération verticale aide à voir les formes et ne sert pas au calcul du masque.</p>
+      <p>Pour chaque direction, le code échantillonne 48 distances entre 10 m et 100 km, sur 180 azimuts espacés de 2°. Il conserve le relief qui monte le plus haut dans le ciel après avoir corrigé la courbure lunaire. Le profil est interpolé entre les azimuts. Sans profil disponible, le calcul revient à un horizon géométrique à 0°.</p>
+      <p class="method-equation">H(A) = max(0, max<sub>d</sub> atan2(z(d, A) − z<sub>site</sub> − d²/(2R), d))</p>
+      <p>Ici, d est la distance en surface, z l’altitude du terrain et R = 1 737,4 km le rayon de référence. Toutes les longueurs de l’équation doivent avoir la même unité. Le terme d²/(2R) approxime la chute de la surface sous le plan tangent. La résolution de la grille, les crêtes entre deux rayons et le relief au-delà de 100 km peuvent modifier les transitions.</p>
+    </section>
+
+    <section id="soleil" class="method-section" aria-labelledby="soleil-titre">
+      <h2 id="soleil-titre">Éclairement et périodes d’ombre</h2>
+      <p>Le centre du Soleil est visible lorsque son élévation h<sub>☉</sub> dépasse le masque H à son azimut. Une surface horizontale reçoit une fraction sin(h<sub>☉</sub>) du flux reçu perpendiculairement aux rayons. Le flux varie aussi comme l’inverse du carré de la distance d<sub>☉</sub> à la Lune.</p>
+      <p class="method-equation">I<sub>rel</sub> (%) = 100 × (1 UA / d<sub>☉</sub>)² × max(0, sin h<sub>☉</sub>) si h<sub>☉</sub> &gt; H(A<sub>☉</sub>)<br>I<sub>rel</sub> = 0 si le Soleil est sous le masque</p>
+      <p>Ce pourcentage est relatif au flux à 1 unité astronomique sur une surface perpendiculaire aux rayons. Le modèle utilise le centre du disque solaire. Il ne calcule pas les éclipses, l’éclairage diffus, la température, ni les watts fournis par un panneau. Les bandes Soleil de la comparaison représentent des états éclairé ou ombragé.</p>
+    </section>
+
+    <section id="communications" class="method-section" aria-labelledby="communications-titre">
+      <h2 id="communications-titre">Visibilité de la Terre et réseau DSN</h2>
+      <p>Dans A/B, <strong>Terre visible</strong> signifie que le centre de la Terre dépasse l’horizon local. <strong>Lien direct</strong> exige aussi une élévation supérieure à 10° côté lunaire. Le seuil est un choix du modèle. Ce test simplifié ne confirme pas qu’une antenne terrestre donnée peut recevoir le signal. Par exemple, si le masque est à 3° et la Terre à 8°, la Terre est visible, mais le seuil de liaison directe n’est pas atteint.</p>
+      <p class="method-equation">Terre visible si h<sub>⊕</sub> &gt; H(A<sub>⊕</sub>)<br>Lien direct A/B si h<sub>⊕</sub> &gt; max(H(A<sub>⊕</sub>), 10°)</p>
+      <p>Le graphique de visibilité DSN fait un autre calcul. Il transforme les positions et les normales locales de Goldstone (DSS-14), Madrid (DSS-63) et Canberra (DSS-43) du repère terrestre <code>IAU_EARTH</code> vers J2000. Il vérifie que chaque extrémité voit l’autre au-dessus de son horizon et indique la station admissible la plus haute dans le ciel du site lunaire.</p>
+      <p>Pour un relais dans A/B, il faut une trajectoire disponible, une vue du satellite depuis le site au-dessus du relief et au moins une station DSN qui voit le satellite à plus de 10° sans occultation lunaire. Le code retient la station qui voit le satellite le plus haut. Il calcule le point du segment station–satellite le plus proche du centre de la Lune. Si cette distance est inférieure ou égale au rayon lunaire, le segment est bloqué.</p>
+      <p class="method-equation"><b>v</b> = <b>q</b> − <b>p</b><br>τ = clip(((<b>c</b> − <b>p</b>) · <b>v</b>) / ‖<b>v</b>‖², 0, 1)<br>‖<b>p</b> + τ<b>v</b> − <b>c</b>‖ ≤ R</p>
+      <p>Dans l’équation, <b>p</b> est la position de la station, <b>q</b> celle du satellite et <b>c</b> le centre de la Lune. L’opération clip borne le résultat entre 0 et 1 pour rester sur le segment.</p>
+    </section>
+
+    <section id="orbites" class="method-section" aria-labelledby="orbites-titre">
+      <h2 id="orbites-titre">Trajectoires des satellites et choix du relais</h2>
+      <p>LRO et CAPSTONE proviennent de JPL Horizons quand leurs trajectoires sont chargées. Les positions entre deux points sont interpolées linéairement. Lorsque la date dépasse la couverture disponible et qu’un dernier état valide existe, le code prévoit une propagation vers l’avant avec GMAT si son API est disponible.</p>
+      <p>GMAT intègre la position et la vitesse depuis cet état initial. Le modèle combine le champ gravitationnel lunaire (degré et ordre 165 dans le code de référence), l’attraction de la Terre et du Soleil et la pression du rayonnement solaire avec des paramètres génériques. Une trajectoire propagée reste une estimation sensible à l’état de départ et aux forces retenues.</p>
+      <p>Queqiao-2 et Okina sont des exemples d’orbites elliptiques, sans suivi de leur position réelle. Dans le modèle à deux corps, μ est le paramètre gravitationnel lunaire, a le demi-grand axe, e l’excentricité et E l’anomalie excentrique. On déduit la période T de a, puis on résout l’équation de Kepler pour trouver la position sur l’ellipse à l’instant t.</p>
+      <p class="method-equation">T = 2π√(a³/μ)<br>M(t) = M<sub>0</sub> + √(μ/a³)(t − t<sub>0</sub>)<br>E − e sin E = M(t)</p>
+      <p>A/B privilégie le lien direct. Sinon, parmi les relais admissibles, le code retient celui qui reste disponible le plus longtemps jusqu’à sa perte ou au retour du lien direct. À égalité, il conserve le relais précédent s’il est admissible, puis applique un ordre fixe. Une coupure apparaît lorsque ni le lien direct ni un relais ne sont admissibles.</p>
+    </section>
+
+    <section id="chronologies" class="method-section" aria-labelledby="chronologies-titre">
+      <h2 id="chronologies-titre">Chronologies, durées et fréquences</h2>
+      <p>Chaque scénario évalue les conditions aux instants t<sub>i</sub> = t<sub>0</sub> + iΔt. A et B ont une durée et un pas communs. La chronologie aligne les temps écoulés depuis leurs débuts respectifs. Le code additionne les intervalles connus d’un même état pour estimer les durées, repère la plus longue suite d’ombre et signale le premier changement détecté. Les transitions sont estimées à la résolution du pas, et une fenêtre brève entre deux points peut passer inaperçue. La durée choisie doit être un multiple du pas.</p>
+      <p>Avec 30 jours et un pas de 10 min, chaque scénario évalue 4 321 instants. Un pas deux fois plus fin double environ le nombre de positions à calculer. Le choix du relais examine aussi les échantillons suivants pour estimer la continuité.</p>
+      <p class="method-equation">Durée d’un état ≈ Δt × nombre d’intervalles connus attribués à cet état</p>
+      <p>Le graphique externe peut aussi afficher le spectre de Fourier de l’éclairement. Le code retire la moyenne, applique une fenêtre de Hann pour atténuer les effets de bord, puis repère les pics d’amplitude de la transformée de Fourier rapide. Une fréquence f correspond à une période P = 1/f. Les pics décrivent la série calculée et dépendent de sa longueur et de sa cadence d’échantillonnage.</p>
+    </section>
+
+    <section id="donnees" class="method-section" aria-labelledby="donnees-titre">
+      <h2 id="donnees-titre">Sources, limites et vérification</h2>
+      <p>Sépare les données externes (éphémérides, altimétrie et trajectoires Horizons), les choix du modèle (seuils, portée et pas du masque), et les résultats calculés (fenêtres, durées et route retenue). Une carte de relief et une trajectoire 3D servent à interpréter ces résultats.</p>
+      <p>Les estimations de communication sont géométriques. Pour évaluer une liaison opérationnelle, il faut en plus un bilan radio, les contraintes de pointage, les horaires DSN, le matériel disponible et les manœuvres des satellites. Les zones près des transitions dépendent particulièrement du relief et de la résolution temporelle.</p>
+      <p>Pour vérifier une analyse, noter le site et son repère, les dates UTC, le pas, le modèle de relief et la provenance des trajectoires. Comparer les angles à un calcul indépendant avec les mêmes conventions, puis réduire le pas et comparer le relief polaire au relief global lorsque les deux sont disponibles. Ces vérifications servent à mesurer la sensibilité des résultats.</p>
+      <ul class="method-sources">
+        <li><a href="https://naif.jpl.nasa.gov/pub/naif/generic_kernels/spk/planets/de440_and_de441.pdf">Park et al. (2021), éphémérides JPL DE440 et DE441</a></li>
+        <li><a href="https://naif.jpl.nasa.gov/pub/naif/generic_kernels/">NASA/JPL NAIF, fichiers SPICE (dont de440s.bsp, orientation lunaire et secondes intercalaires)</a></li>
+        <li><a href="https://pgda.gsfc.nasa.gov/products/90">NASA Goddard, relief polaire LOLA (LDEM_80S_20MPP_ADJ.TIF)</a></li>
+        <li><a href="https://astrogeology.usgs.gov/search/map/moon_lro_lola_dem_118m">USGS Astrogeology, modèle global LOLA de 118 m par pixel</a></li>
+        <li><a href="https://deepspace.jpl.nasa.gov/about/">NASA/JPL, Deep Space Network et ses trois complexes</a></li>
+        <li><a href="https://ssd.jpl.nasa.gov/horizons/">JPL Horizons, éphémérides et vecteurs d’état</a></li>
+        <li><a href="https://github.com/nasa/GMAT">NASA, General Mission Analysis Tool (GMAT)</a></li>
+      </ul>
+    </section>
+    <p class="method-sources"><a href="tutoriel.html">Voir le tutoriel →</a></p>
+  </div>
+</main>
+<footer><a class="brand" href="index.html" aria-label="CisLunar, introduction">CisLunar</a><p>Éclairement et visibilité Terre–Lune · projet en conception.</p><a href="#haut">Retour en haut ↑</a><nav class="footer-nav" aria-label="Navigation de pied de page"><a href="index.html">Accueil</a><a href="comprendre.html">Comprendre</a><a href="lieux.html">Les lieux</a><a href="solutions.html">Solutions</a><a href="telechargement.html">Le logiciel</a><a href="apercu.html">Aperçu</a><a href="tutoriel.html">Tutoriel</a><a href="methode.html" aria-current="page">Méthode</a><a href="equipe.html">L’équipe</a></nav><div class="footer-bottom"><span>PROJET ÉDUCATIF ET INFORMATIF · CisLunar</span><span>ILLUSTRATIONS CONCEPTUELLES · AUCUNE AFFILIATION À LA NASA</span></div></footer>
+</body></html>

@@ -243,6 +243,54 @@ html:has(.image-viewer[open]) {
   padding-block: 32px 48px;
 }
 
+.method-guide {
+  max-width: 1000px;
+  padding-block: 36px 56px;
+}
+
+.method-scope {
+  color: var(--muted);
+}
+
+.method-section {
+  border-top: 1px solid var(--line);
+  padding-block: 24px;
+  scroll-margin-top: 16px;
+}
+
+.method-section h2 {
+  margin-bottom: 14px;
+  font-size: clamp(24px, 3vw, 34px);
+}
+
+.method-section p {
+  max-width: 80ch;
+}
+
+.method-equation {
+  padding: 14px 16px;
+  border-left: 3px solid #935019;
+  border-radius: 0 10px 10px 0;
+  background: #fffaf2;
+  overflow-wrap: anywhere;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: .9rem;
+  line-height: 1.8;
+}
+
+.method-guide a:not(.sim-case-nav a) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.method-sources {
+  padding-inline-start: 1.25rem;
+}
+
+.method-sources li {
+  margin-block: 6px;
+}
+
 .tutorial-guide {
   padding-block: 36px 48px;
 }
