@@ -14,8 +14,8 @@
       <a href="#sites">Ajouter un site</a>
       <a href="#relief">Examiner le relief</a>
       <a href="#graphiques">Ouvrir les graphiques du site</a>
-      <a href="#comparaison">Comparer deux scénarios</a>
-      <a href="#resultats">Lire la comparaison</a>
+      <a href="#comparaison">Comparer deux scénarios et lire la comparaison</a>
+      <a href="#resultats">Lire les caractéristiques d’un site</a>
     </nav>
 
     <section class="tutorial-step" id="date" aria-labelledby="date-titre">
@@ -62,21 +62,24 @@
 
     <section class="tutorial-step" id="comparaison" aria-labelledby="comparaison-titre">
       <div>
-        <h2 id="comparaison-titre">5. Comparer deux scénarios</h2>
-        <p>Ouvre <strong>COMPARER A/B</strong>. Choisis un site et un <strong>Début UTC</strong> au format <code>AAAA-MM-JJ HH:MM</code>. Clique sur <strong>Dupliquer A → B</strong>, puis change seulement la date de B. Garde par exemple les réglages initiaux, <strong>30 jours</strong> et un <strong>pas de 10 minutes</strong>, puis clique sur <strong>Calculer la comparaison</strong>.</p>
+        <h2 id="comparaison-titre">5. Comparer deux scénarios et lire la comparaison</h2>
+        <p>Ouvre <strong>COMPARER A/B</strong>. Choisis un site et un <strong>Début UTC</strong> au format <code>AAAA-MM-JJ HH:MM</code> pour chaque scénario. Pour tester deux dates au même endroit, utilise <strong>Dupliquer A → B</strong> puis modifie la date de B. Règle la durée et le pas communs, puis clique sur <strong>Calculer la comparaison</strong>.</p>
+        <p>Lis les bandes A et B au même nombre de jours depuis leur départ respectif. Dans cet exemple, les deux sites partent à la même date. A dispose d’un lien direct pendant toute la période affichée. B communique par intermittence grâce aux relais indiqués sur la ligne <strong>Route retenue</strong>.</p>
       </div>
-      <figure class="tutorial-capture">
-        <figcaption>Capture à venir · Réglages des scénarios A et B</figcaption>
+      <figure class="tutorial-capture tutorial-capture--filled">
+        <a class="image-preview-thumb" href="assets/tutoriel-comparaison-ab.png" data-image-preview><img src="assets/tutoriel-comparaison-ab.png" width="1913" height="989" alt="Fenêtre de comparaison A/B de CisLunar avec les réglages, les chronologies et le graphique du Soleil et de l’horizon." loading="lazy"></a>
+        <figcaption><a href="assets/tutoriel-comparaison-ab.png" data-image-preview>Agrandir la capture de la comparaison A/B</a></figcaption>
       </figure>
     </section>
 
     <section class="tutorial-step" id="resultats" aria-labelledby="resultats-titre">
       <div>
-        <h2 id="resultats-titre">6. Lire la comparaison</h2>
-        <p>Compare les bandes <strong>Soleil</strong>, <strong>Terre visible</strong> et <strong>Lien direct</strong> au même temps écoulé depuis chaque départ. Utilise <strong>Détails A/B</strong> pour consulter les durées et les transitions estimées. Le pourcentage d’éclairement représente la lumière directe sur une surface horizontale, sans modéliser le rendement d’un panneau.</p>
+        <h2 id="resultats-titre">6. Lire les caractéristiques d’un site</h2>
+        <p>Dans la fenêtre de comparaison, clique sur <strong>Détails A/B</strong> et lis le panneau du site qui t’intéresse. Relève la durée totale d’éclairement, la plus longue période d’ombre et les prochaines transitions estimées du Soleil et de la Terre.</p>
+        <p>Pour repérer les périodes où un relais est nécessaire, compare <strong>Lien direct</strong> et <strong>Communication</strong> : s’il n’y a pas de lien direct mais que la communication est possible, consulte <strong>Route retenue</strong> pour voir quel satellite est utilisé. Si aucune route n’est disponible, la chronologie indique <strong>Aucun lien</strong>.</p>
       </div>
       <figure class="tutorial-capture">
-        <figcaption>Capture à venir · Chronologie et détails A/B</figcaption>
+        <figcaption>Capture à venir · Caractéristiques du site dans Détails A/B</figcaption>
       </figure>
     </section>
 

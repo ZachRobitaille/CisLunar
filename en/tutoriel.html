@@ -14,8 +14,8 @@
       <a href="#sites">Add a site</a>
       <a href="#relief">Explore the terrain</a>
       <a href="#graphiques">Open the site charts</a>
-      <a href="#comparaison">Compare two scenarios</a>
-      <a href="#resultats">Read the comparison</a>
+      <a href="#comparaison">Compare two scenarios and read the results</a>
+      <a href="#resultats">Read the site characteristics</a>
     </nav>
 
     <section class="tutorial-step" id="date" aria-labelledby="date-titre">
@@ -62,21 +62,24 @@
 
     <section class="tutorial-step" id="comparaison" aria-labelledby="comparaison-titre">
       <div>
-        <h2 id="comparaison-titre">5. Compare two scenarios</h2>
-        <p>Open <strong>COMPARER A/B</strong>. Select a site and enter <strong>Début UTC</strong> as <code>YYYY-MM-DD HH:MM</code>. Click <strong>Dupliquer A → B</strong>, then change only the start date for B. For example, keep the defaults of <strong>30 days</strong> at <strong>10-minute intervals</strong>, then click <strong>Calculer la comparaison</strong>.</p>
+        <h2 id="comparaison-titre">5. Compare two scenarios and read the results</h2>
+        <p>Open <strong>COMPARER A/B</strong>. Select a site and enter <strong>Début UTC</strong> as <code>YYYY-MM-DD HH:MM</code> for each scenario. To test two dates at the same site, select <strong>Dupliquer A → B</strong> and change B’s date. Set the shared duration and time step, then click <strong>Calculer la comparaison</strong>.</p>
+        <p>Compare the A and B bands at the same number of days from their respective start times. In this example, the two sites use the same start date. A has a direct link throughout the period shown. B communicates intermittently via the satellites shown in <strong>Route retenue</strong> (selected route).</p>
       </div>
-      <figure class="tutorial-capture">
-        <figcaption>Screenshot coming soon · Scenario A and B settings</figcaption>
+      <figure class="tutorial-capture tutorial-capture--filled">
+        <a class="image-preview-thumb" href="../assets/tutoriel-comparaison-ab.png" data-image-preview><img src="../assets/tutoriel-comparaison-ab.png" width="1913" height="989" alt="CisLunar A/B comparison window showing the settings, timelines, and Sun and horizon plot." loading="lazy"></a>
+        <figcaption><a href="../assets/tutoriel-comparaison-ab.png" data-image-preview>Enlarge the A/B comparison screenshot</a></figcaption>
       </figure>
     </section>
 
     <section class="tutorial-step" id="resultats" aria-labelledby="resultats-titre">
       <div>
-        <h2 id="resultats-titre">6. Read the comparison</h2>
-        <p>Compare <strong>Soleil</strong> (sunlight), <strong>Terre visible</strong> (Earth visibility) and <strong>Lien direct</strong> (direct link) at the same elapsed time from each start. Use <strong>Détails A/B</strong> for estimated durations and transitions. The illumination percentage represents direct sunlight on a horizontal surface, without modeling panel efficiency.</p>
+        <h2 id="resultats-titre">6. Read the site characteristics</h2>
+        <p>In the comparison window, click <strong>Détails A/B</strong> and read the panel for the site you want to examine. Check total sunlight duration, the longest period in shadow, and the next estimated Sun and Earth visibility transitions.</p>
+        <p>To find when a relay is needed, compare <strong>Lien direct</strong> (direct link) and <strong>Communication</strong>. If there is no direct link but communication is available, <strong>Route retenue</strong> shows which satellite is used. If no route is available, the timeline shows <strong>Aucun lien</strong> (no link).</p>
       </div>
       <figure class="tutorial-capture">
-        <figcaption>Screenshot coming soon · Timeline and A/B details</figcaption>
+        <figcaption>Screenshot coming soon · Site characteristics in Détails A/B</figcaption>
       </figure>
     </section>
 
