@@ -243,6 +243,11 @@ html:has(.image-viewer[open]) {
   padding-block: 32px 48px;
 }
 
+.developer-card .profile-photo {
+  display: block;
+  object-fit: cover;
+}
+
 .method-guide {
   max-width: 1000px;
   padding-block: 36px 56px;
